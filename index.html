@@ -1,0 +1,304 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ahsan Noor</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Ahsan Noor, senior .NET backend engineer: ASP.NET Core APIs, integrations, SQL performance and legacy .NET modernization.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column with a request/response "console" hero; sections read like API docs (method, path, body). */
+:root{
+  --bg:#F2F5F7; --surface:#FFFFFF; --ink:#0F1B2D; --muted:#4D5B6D; --line:#D6DEE6;
+  --accent:#0E8F80; --accent-ink:#FFFFFF; --code-bg:#0F1B2D; --code-fg:#D7E3EE; --ok:#3DD6B5; --key:#8FB8FF; --str:#F2C98B;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B1522; --surface:#122033; --ink:#E6EDF4; --muted:#9AAABC; --line:#24364C;
+  --accent:#2CC4AE; --accent-ink:#06211D; --code-bg:#07101B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B1522; --surface:#122033; --ink:#E6EDF4; --muted:#9AAABC; --line:#24364C;
+  --accent:#2CC4AE; --accent-ink:#06211D; --code-bg:#07101B; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+.label{font:500 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.method{font:500 .72rem/1 var(--mono);color:var(--accent);letter-spacing:.04em}
+
+/* nav */
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:22px;flex-wrap:wrap}
+nav .brand{font:500 .9rem var(--mono);color:var(--ink);text-decoration:none}
+nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav ul a{color:var(--muted);text-decoration:none;font-size:.92rem}
+nav ul a:hover{color:var(--ink)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:40px 72px}
+.hero>*{min-width:0}
+.hero h1{font-size:clamp(2.4rem,6vw,4.1rem);font-weight:700;letter-spacing:-.02em}
+.hero h1 span{color:var(--accent)}
+.hero p.lede{font-size:1.12rem;color:var(--muted);max-width:34em;margin:20px 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:8px;font-weight:600;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.console pre{font-size:.8rem}
+.console{background:var(--code-bg);color:var(--code-fg);border-radius:12px;font:400 .84rem/1.7 var(--mono);overflow-x:auto;box-shadow:0 20px 40px -24px rgba(15,27,45,.55)}
+.console header{display:flex;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);font-size:.76rem;color:#8EA0B4}
+.console header b{color:var(--ok);font-weight:500}
+.console pre{margin:0;padding:16px;white-space:pre}
+.k{color:var(--key)}.s{color:var(--str)}.n{color:var(--ok)}
+
+/* sections */
+section{padding-block:56px;border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:220px 1fr;gap:32px;margin-bottom:32px}
+.sec-head>*{min-width:0}
+.sec-head h2{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:700;letter-spacing:-.01em}
+.sec-head p{color:var(--muted);margin:10px 0 0;max-width:40em}
+
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.svc{background:var(--surface);padding:24px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.svc h3{font-size:1.15rem;font-weight:700}
+.svc p{margin:0;color:var(--muted);font-size:.95rem}
+.svc .stack{font:400 .78rem/1.5 var(--mono);color:var(--muted);margin-top:auto;padding-top:8px}
+
+.work{display:grid;gap:20px}
+.case{display:grid;grid-template-columns:220px 1fr;gap:32px;padding:28px 0;border-bottom:1px dashed var(--line)}
+.case:last-child{border-bottom:0}
+.case>*{min-width:0}
+.case .meta{display:flex;flex-direction:column;gap:8px}
+.case .ctx{font-size:.9rem;color:var(--muted)}
+.case h3{font-size:1.35rem;font-weight:700;margin-bottom:10px}
+.case p{margin:0 0 12px;max-width:62ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0}
+.chips li{font:400 .76rem/1 var(--mono);padding:6px 8px;border:1px solid var(--line);border-radius:6px;color:var(--ink);background:var(--surface)}
+
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+.skills div{min-width:0}
+.skills h3{font:600 .95rem var(--body);margin-bottom:10px}
+
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.timeline li{display:grid;grid-template-columns:160px 1fr;gap:32px;padding:16px 0;border-bottom:1px solid var(--line)}
+.timeline li>*{min-width:0}
+.timeline time{font:400 .85rem var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.timeline strong{display:block;font-weight:600}
+.timeline span{color:var(--muted);font-size:.94rem}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.contact>*{min-width:0}
+.contact h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700}
+.contact p{color:var(--muted);max-width:34em}
+.links{display:grid;gap:10px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:10px;flex-wrap:wrap}
+.row .v{font:400 .9rem var(--mono);word-break:break-all;user-select:all}
+.copy{font:500 .8rem var(--body);padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+footer{padding-block:32px 48px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;gap:32px;padding-block:24px 48px}
+  .sec-head,.case,.contact{grid-template-columns:1fr;gap:12px}
+  .timeline li{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .console{animation:rise .6s ease-out both}
+  @keyframes rise{from{transform:translateY(8px)}to{transform:none}}
+}
+</style>
+</head><body>
+
+<div class="wrap">
+  <nav aria-label="Main">
+    <a class="brand" href="#top">Ahsan Noor</a>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <p class="label">Senior .NET Engineer · Pakistan · Remote</p>
+      <h1>Backends that keep working <span>after launch.</span></h1>
+      <p class="lede">I'm Ahsan Noor. I've spent 6+ years building ASP.NET Core APIs, distributed services and integrations in C#, and moving legacy .NET Framework systems onto modern .NET.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://www.fiverr.com/ahsannoor_dev" target="_blank" rel="noopener">Hire me on Fiverr</a>
+        <a class="btn" href="#work">See selected work</a>
+      </div>
+    </div>
+    <div class="console" role="img" aria-label="Example API response describing Ahsan Noor's profile">
+      <header><span>GET /api/engineers/ahsan-noor</span><b>200 OK</b></header>
+<pre>{
+  <span class="k">"role"</span>: <span class="s">"Senior .NET Developer"</span>,
+  <span class="k">"experience_years"</span>: <span class="n">6</span>,
+  <span class="k">"core"</span>: [<span class="s">"C#"</span>, <span class="s">"ASP.NET Core"</span>, <span class="s">".NET 8"</span>],
+  <span class="k">"data"</span>: [<span class="s">"SQL Server"</span>, <span class="s">"PostgreSQL"</span>,
+           <span class="s">"Cassandra"</span>, <span class="s">"EF Core"</span>],
+  <span class="k">"messaging"</span>: [<span class="s">"NATS"</span>, <span class="s">"RabbitMQ"</span>,
+                <span class="s">"Azure Service Bus"</span>],
+  <span class="k">"patterns"</span>: [<span class="s">"CQRS"</span>, <span class="s">"gRPC"</span>, <span class="s">"Clean Architecture"</span>],
+  <span class="k">"available"</span>: <span class="n">true</span>
+}</pre>
+    </div>
+  </header>
+
+  <section id="services" aria-labelledby="services-h">
+    <div class="sec-head">
+      <p class="method">POST /services</p>
+      <div>
+        <h2 id="services-h">What I can take on</h2>
+        <p>Scoped, fixed-price work through Fiverr. Message me first and I'll confirm scope and timeline before you order.</p>
+      </div>
+    </div>
+    <div class="services">
+      <article class="svc">
+        <h3>ASP.NET Core Web APIs</h3>
+        <p>New REST APIs or new features on an existing one: auth, validation, logging and Swagger docs included.</p>
+        <p class="stack">.NET 8 · EF Core · JWT · OpenAPI</p>
+      </article>
+      <article class="svc">
+        <h3>Legacy .NET modernization</h3>
+        <p>Step-by-step migration from .NET Framework 4.x and MVC 5 to ASP.NET Core, starting with a written assessment.</p>
+        <p class="stack">.NET Framework → .NET 8</p>
+      </article>
+      <article class="svc">
+        <h3>SQL &amp; EF Core performance</h3>
+        <p>Execution-plan analysis, index scripts and LINQ rewrites, with before/after timings measured on your data.</p>
+        <p class="stack">SQL Server · PostgreSQL · LINQ</p>
+      </article>
+      <article class="svc">
+        <h3>Bug fixing &amp; troubleshooting</h3>
+        <p>Root-cause fixes for exceptions, 500 errors, DI and dependency conflicts, with a short note on what changed.</p>
+        <p class="stack">C# · ASP.NET Core · MVC</p>
+      </article>
+      <article class="svc">
+        <h3>Integrations &amp; messaging</h3>
+        <p>Third-party APIs, webhooks, queues and Azure Functions that retry safely and don't lose messages.</p>
+        <p class="stack">Azure Functions · Service Bus · RabbitMQ</p>
+      </article>
+      <article class="svc">
+        <h3>Angular / React + .NET</h3>
+        <p>Connecting a frontend to a .NET backend: login, forms, tables and the API behind them.</p>
+        <p class="stack">Angular · React · ASP.NET Core</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-h">
+    <div class="sec-head">
+      <p class="method">GET /work?selected=true</p>
+      <div>
+        <h2 id="work-h">Selected work</h2>
+        <p>Systems I've built in professional roles. Client names and internal details are left out on purpose.</p>
+      </div>
+    </div>
+    <div class="work">
+      <article class="case">
+        <div class="meta"><span class="label">Logistics · UK</span><span class="ctx">Distributed services</span></div>
+        <div>
+          <h3>Distributed order processing</h3>
+          <p>A microservices-based order pipeline using CQRS and event-driven messaging. gRPC handles fast service-to-service calls and NATS carries asynchronous events, so services scale independently and stay consistent under high volume.</p>
+          <ul class="chips"><li>.NET 8</li><li>gRPC</li><li>CQRS</li><li>NATS</li><li>Cassandra</li></ul>
+        </div>
+      </article>
+      <article class="case">
+        <div class="meta"><span class="label">Logistics · UK</span><span class="ctx">Data pipelines</span></div>
+        <div>
+          <h3>Real-time data synchronization</h3>
+          <p>An event-driven pipeline where database changes trigger updates across distributed systems. Generic message handlers built with a factory pattern make new event types cheap to add and replaced manual sync work.</p>
+          <ul class="chips"><li>.NET 8</li><li>PostgreSQL</li><li>Cassandra</li><li>NATS</li></ul>
+        </div>
+      </article>
+      <article class="case">
+        <div class="meta"><span class="label">Logistics · UK</span><span class="ctx">Multi-tenant platform</span></div>
+        <div>
+          <h3>Multi-tenant serviceable locations</h3>
+          <p>A multi-tenant service for managing locations, carriers and discounts, with caching and mapping strategies tuned for fast lookups while keeping complex business rules configurable.</p>
+          <ul class="chips"><li>.NET Core</li><li>SQL Server</li><li>Caching</li></ul>
+        </div>
+      </article>
+      <article class="case">
+        <div class="meta"><span class="label">Cloud</span><span class="ctx">Serverless</span></div>
+        <div>
+          <h3>Event-driven email processing</h3>
+          <p>Moved email handling from synchronous API calls to a queue-based model with Azure Functions, so slow or failing sends no longer block the request path.</p>
+          <ul class="chips"><li>Azure Functions</li><li>Azure Queue Storage</li><li>.NET</li></ul>
+        </div>
+      </article>
+      <article class="case">
+        <div class="meta"><span class="label">Fintech</span><span class="ctx">Payroll platform</span></div>
+        <div>
+          <h3>Automated payroll APIs</h3>
+          <p>Secure APIs for employee management, salary processing and reporting, with role-based access and careful handling of financial data.</p>
+          <ul class="chips"><li>.NET Core</li><li>Web API</li><li>SQL Server</li><li>Azure</li></ul>
+        </div>
+      </article>
+      <article class="case">
+        <div class="meta"><span class="label">Architecture</span><span class="ctx">Modernization</span></div>
+        <div>
+          <h3>Legacy modernization &amp; API gateway</h3>
+          <p>Refactored a tightly coupled .NET Framework system into a modular architecture on .NET Core, and set up an Ocelot gateway for routing, authentication and combined Swagger docs across services.</p>
+          <ul class="chips"><li>.NET Framework → .NET Core</li><li>Ocelot</li><li>Swagger</li></ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-h">
+    <div class="sec-head">
+      <p class="method">GET /skills</p>
+      <div><h2 id="skills-h">Toolkit</h2></div>
+    </div>
+    <div class="skills">
+      <div><h3>Backend</h3><ul class="chips"><li>C#</li><li>ASP.NET Core</li><li>.NET 6/8</li><li>Web API</li><li>gRPC</li><li>MVC</li><li>MediatR</li></ul></div>
+      <div><h3>Data</h3><ul class="chips"><li>SQL Server</li><li>PostgreSQL</li><li>Cassandra</li><li>EF Core</li><li>LINQ</li><li>Redis</li></ul></div>
+      <div><h3>Messaging &amp; cloud</h3><ul class="chips"><li>NATS</li><li>RabbitMQ</li><li>Azure Service Bus</li><li>Azure Functions</li><li>App Service</li><li>Docker</li><li>CI/CD</li></ul></div>
+      <div><h3>Frontend</h3><ul class="chips"><li>Angular</li><li>React</li><li>TypeScript</li><li>Bootstrap</li></ul></div>
+    </div>
+  </section>
+
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="sec-head">
+      <p class="method">GET /experience</p>
+      <div><h2 id="exp-h">Experience</h2></div>
+    </div>
+    <ol class="timeline" reversed>
+      <li><time>2022 – now</time><div><strong>Team Lead · Senior .NET Developer</strong><span>Microservices, distributed systems and integrations for logistics and fintech products. Code reviews, architecture and mentoring.</span></div></li>
+      <li><time>2021</time><div><strong>Senior .NET Developer</strong><span>Azure Service Bus, Identity Server, microservices with MediatR, JWT auth.</span></div></li>
+      <li><time>2021</time><div><strong>React / .NET Developer</strong><span>React and Redux frontends on .NET Web APIs.</span></div></li>
+      <li><time>2018 – 2021</time><div><strong>ASP.NET Developer</strong><span>WebForms, MVC 5, .NET Core and REST APIs, including backend work for a banking app.</span></div></li>
+    </ol>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="contact">
+      <div>
+        <p class="method">POST /messages</p>
+        <h2 id="contact-h">Have a .NET project in mind?</h2>
+        <p>Send me the scope, your current stack and your deadline. I'll reply with questions or a clear yes.</p>
+      </div>
+      <div class="links">
+        <div class="row"><span class="v" id="email">ahsan.noor.dev@gmail.com</span><button class="copy" id="copy-email" type="button">Copy</button></div>
+        <a class="row" href="https://www.fiverr.com/ahsannoor_dev" target="_blank" rel="noopener"><span>Fiverr</span><span class="v">ahsannoor_dev</span></a>
+        <a class="row" href="https://github.com/Ahsan-Noor38" target="_blank" rel="noopener"><span>GitHub</span><span class="v">Ahsan-Noor38</span></a>
+        <a class="row" href="https://www.linkedin.com/in/ahsan-noor-24423a190/" target="_blank" rel="noopener"><span>LinkedIn</span><span class="v">ahsan-noor</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 Ahsan Noor · Built with plain HTML and CSS.</footer>
+</div>
+
+<script>
+document.getElementById('copy-email').addEventListener('click', function (e) {
+  var btn = e.currentTarget, text = document.getElementById('email').textContent;
+  function done(msg){ btn.textContent = msg; setTimeout(function(){ btn.textContent = 'Copy'; }, 1600); }
+  function select(){ var r = document.createRange(); r.selectNodeContents(document.getElementById('email')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected'); }
+  try { navigator.clipboard.writeText(text).then(function(){ done('Copied'); }, select); } catch (err) { select(); }
+});
+</script>
+</body></html>
